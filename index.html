@@ -4,39 +4,55 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sinthanani - Kusinthana Katundu</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#f6f3ec;color:#1a1a1a}
-header{background:#0f7a4a;color:#fff;padding:16px;text-align:center;position:sticky;top:0;z-index:10}
-header h1{margin:0;font-size:22px}header p{margin:4px 0 0;font-size:13px;opacity:.9}
-.wrap{max-width:720px;margin:auto;padding:14px}
-.card{background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:14px}
-label{font-weight:700;font-size:13px;display:block;margin-top:8px}
-input,select,textarea{width:100%;padding:11px;border:1px solid #ddd;border-radius:10px;margin:4px 0 0;font-size:15px}
-.btn{background:#0f7a4a;color:#fff;border:0;padding:13px;border-radius:10px;font-weight:700;width:100%;font-size:16px;margin-top:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.item{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.item img{width:100%;height:170px;object-fit:cover;background:#eee}
-.item div{padding:10px}.pill{display:inline-block;background:#e8f5ee;color:#0f7a4a;padding:3px 8px;border-radius:20px;font-size:12px;font-weight:700}
-.wa{display:block;text-align:center;background:#25D366;color:#fff;padding:10px;border-radius:10px;text-decoration:none;font-weight:700;margin-top:8px}
-footer{text-align:center;padding:20px;color:#666;font-size:13px}
-.filters{display:flex;gap:8px}.filters>*{flex:1}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#fdf8f0;color:#1a1a1a}
+header{background:#0f9d58;color:#fff;padding:18px 14px 16px;text-align:center;position:sticky;top:0;z-index:10}
+header h1{margin:0;font-size:26px}header p{margin:6px 0 0;font-size:14px;opacity:.95}
+.wrap{max-width:720px;margin:auto;padding:12px}
+.search{width:100%;padding:13px 14px;border:1px solid #e5dcc8;border-radius:12px;font-size:15px;background:#fff}
+.pills{display:flex;gap:8px;overflow-x:auto;padding:12px 2px;scrollbar-width:none}
+.pillbtn{white-space:nowrap;padding:9px 16px;border-radius:20px;border:1.5px solid #0f9d58;background:#fff;color:#0f9d58;font-weight:700;font-size:14px}
+.pillbtn.active{background:#0f9d58;color:#fff}
+.postBtn{background:#0f9d58;color:#fff;border:0;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:16px;margin:4px 0 12px}
+.card{background:#fff;border-radius:14px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:12px}
+label{font-weight:700;font-size:13px;display:block;margin-top:10px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-top:4px;font-size:15px}
+.item{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:16px}
+.item img{width:100%;height:260px;object-fit:cover;background:#eee}
+.item div{padding:14px}
+.tag{display:inline-block;background:#fff3d6;color:#7a5a00;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;margin-right:6px}
+.tag2{display:inline-block;background:#ffe9e9;color:#7a2a2a;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.wa{display:block;text-align:center;background:#00c853;color:#fff;padding:13px;border-radius:10px;text-decoration:none;font-weight:800;margin-top:12px;font-size:16px}
+footer{text-align:center;padding:20px;color:#888;font-size:13px}
 </style>
 </head>
 <body>
-<header><h1>🔄 Sinthanani</h1><p>Kusinthana Katundu - Barter App Malawi</p><p id="status" style="font-size:12px">● Connecting to Firebase...</p></header>
+<header><h1>🔄 Sinthanani</h1><p>Kusinthana Katundu • Barter in Malawi • No Money Needed</p><p id="status" style="font-size:12px;margin-top:6px">● Live - Connecting...</p></header>
 <div class="wrap">
-<div class="card">
+<input class="search" id="search" placeholder="🔍 Search... e.g. maize, phone, bicycle">
+<div class="pills" id="pills">
+<button class="pillbtn active" onclick="setCat('All',this)">All</button>
+<button class="pillbtn" onclick="setCat('Food / Chakudya',this)">Food / Chakudya</button>
+<button class="pillbtn" onclick="setCat('Phones',this)">Phones</button>
+<button class="pillbtn" onclick="setCat('Clothes / Zovala',this)">Clothes / Zovala</button>
+<button class="pillbtn" onclick="setCat('Animals / Ziweto',this)">Animals / Ziweto</button>
+<button class="pillbtn" onclick="setCat('Transport',this)">Transport</button>
+<button class="pillbtn" onclick="setCat('Other',this)">Other</button>
+</div>
+
+<button class="postBtn" onclick="document.getElementById('form').style.display=document.getElementById('form').style.display=='none'?'block':'none'">➕ Post Your Item - Sindikizani</button>
+
+<div class="card" id="form" style="display:none">
 <label>What do you have? / Muli ndi chani?</label><input id="title" placeholder="e.g. 50kg Maize - Chimanga">
-<label>What do you want? / Mukufuna chani?</label><input id="want" placeholder="e.g. Bicycle - Njinga">
-<label>Location / Malo</label><select id="district"><option>Blantyre</option><option>Lilongwe</option><option>Mzuzu</option><option>Zomba</option><option>Kasungu</option><option>Salima</option><option>Mangochi</option><option>Karonga</option><option>Thyolo</option><option>Other</option></select>
-<label>Category</label><select id="cat"><option>Food / Chakudya</option><option>Electronics</option><option>Animals / Ziweto</option><option>Clothes / Zovala</option><option>Transport</option><option>Other</option></select>
+<label>What do you want? / Mukufuna chani?</label><input id="want" placeholder="e.g. Bicycle or MK 85,000">
+<label>Location / Malo</label><select id="district"><option>Lilongwe</option><option>Blantyre</option><option>Mzuzu</option><option>Zomba</option><option>Kasungu</option><option>Salima</option><option>Mangochi</option><option>Karonga</option><option>Thyolo</option><option>Other</option></select>
+<label>Category</label><select id="cat"><option>Food / Chakudya</option><option>Phones</option><option>Clothes / Zovala</option><option>Animals / Ziweto</option><option>Transport</option><option>Other</option></select>
 <label>WhatsApp Number</label><input id="phone" placeholder="e.g. 0999123456">
 <label>Your Name</label><input id="name" placeholder="Your Name">
 <label>Photo Link (optional)</label><input id="photo" placeholder="Paste photo link, or leave empty">
-<button class="btn" onclick="addItem()">Publish Item - Sindikizani</button><p id="msg"></p>
+<button class="postBtn" onclick="addItem()">Publish Item - Sindikizani</button><p id="msg"></p>
 </div>
 
-<div class="card filters"><input id="search" placeholder="🔍 Search..."><select id="filterDistrict"><option value="">All Districts</option><option>Blantyre</option><option>Lilongwe</option><option>Mzuzu</option><option>Zomba</option><option>Kasungu</option><option>Salima</option><option>Mangochi</option><option>Karonga</option><option>Thyolo</option><option>Other</option></select></div>
-<div id="list" class="grid"></div>
+<div id="list"></div>
 </div>
 <footer>Sinthanani © 2026 • Made for Malawi 🇲🇼</footer>
 
@@ -44,24 +60,20 @@ footer{text-align:center;padding:20px;color:#666;font-size:13px}
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// --- PASTE YOUR CONFIG HERE - copy from Acode lines 51-56 ---
+// KEEP YOUR WORKING CONFIG FROM YOUR CURRENT FILE - DO NOT USE PASTE_YOURS
 const firebaseConfig = {
-  apiKey: "AIzaSyBXBjAN3wd_99knkaIN1SgBgR0G - PASTE FULL FROM ACODE LINE 51",
+  AIzaSyBXBjAN3wd_99knkalN1SgBgROggcTLXy0
   authDomain: "sinthanani-997de.firebaseapp.com",
   projectId: "sinthanani-997de",
   storageBucket: "sinthanani-997de.firebasestorage.app",
   messagingSenderId: "504088914794",
-  appId: "1:504088914794:web:0a7cbfe7c145d8 - PASTE FULL FROM ACODE LINE 56"
-};
-// ------------------------------------------------------------
-
-const app = initializeApp(firebaseConfig);
+0a7cbfe7c145d87fe6d313const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const itemsCol = collection(db, "items");
 document.getElementById('status').textContent = "● Live - Connected to Firebase";
-
-let allItems = [];
-window.addItem = async () => {
+let allItems=[]; let curCat='All';
+window.setCat=(c,btn)=>{curCat=c;document.querySelectorAll('.pillbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');render();}
+window.addItem=async()=>{
   const title=document.getElementById('title').value.trim();
   const want=document.getElementById('want').value.trim();
   const district=document.getElementById('district').value;
@@ -69,30 +81,25 @@ window.addItem = async () => {
   const phone=document.getElementById('phone').value.trim();
   const name=document.getElementById('name').value.trim();
   const photo=document.getElementById('photo').value.trim();
-  if(!title||!want||!phone||!name){alert("Please fill What you have, What you want, Name, WhatsApp");return;}
+  if(!title||!want||!phone||!name){alert("Please fill Have, Want, Name, WhatsApp");return;}
   document.getElementById('msg').textContent="Publishing...";
-  try{
-    await addDoc(itemsCol,{title,want,district,cat,phone,name,photo,createdAt:serverTimestamp()});
-    document.getElementById('msg').textContent="✅ Zikomo! Your item is published!";
-    ['title','want','phone','name','photo'].forEach(id=>document.getElementById(id).value="");
-  }catch(e){ document.getElementById('msg').textContent="❌ Error: "+e.message; }
+  try{await addDoc(itemsCol,{title,want,district,cat,phone,name,photo,createdAt:serverTimestamp()});
+  document.getElementById('msg').textContent="✅ Zikomo! Your item is published!";
+  ['title','want','phone','name','photo'].forEach(id=>document.getElementById(id).value="");
+  }catch(e){document.getElementById('msg').textContent="❌ "+e.message;}
 };
 function render(){
   const q=document.getElementById('search').value.toLowerCase();
-  const d=document.getElementById('filterDistrict').value;
   const list=document.getElementById('list');
-  const filtered=allItems.filter(i=> (!d||i.district===d) && (i.title+" "+i.want+" "+i.district+" "+(i.cat||"")).toLowerCase().includes(q));
-  if(!filtered.length){list.innerHTML="<p>No items yet. Be the first to post!</p>";return;}
-  list.innerHTML=filtered.map(i=>{
+  const f=allItems.filter(i=> (curCat=='All'||i.cat===curCat) && (i.title+" "+i.want+" "+i.district).toLowerCase().includes(q));
+  if(!f.length){list.innerHTML="<p style='text-align:center;padding:20px'>No items yet in this category. Be the first!</p>";return;}
+  list.innerHTML=f.map(i=>{
     let wa=i.phone.replace(/\D/g,""); if(wa.startsWith("0")) wa="265"+wa.slice(1); if(!wa.startsWith("265")) wa="265"+wa;
-    return `<div class="item">${i.photo?`<img src="${i.photo}">`:`<div style="height:170px;background:#e8f5ee;display:flex;align-items:center;justify-content:center;font-size:40px">📦</div>`}<div><span class="pill">${i.district} • ${i.cat||""}</span><h3 style="margin:8px 0 4px">${i.title}</h3><p style="margin:0"><b>Wants:</b> ${i.want}</p><small>By ${i.name}</small><a class="wa" target="_blank" href="https://wa.me/${wa}?text=${encodeURIComponent("Hi "+i.name+", I saw your "+i.title+" on Sinthanani. I want to barter!")}">💬 WhatsApp ${i.name}</a></div></div>`
+    return `<div class="item">${i.photo?`<img src="${i.photo}">`:`<div style="height:260px;background:#e8f5ee;display:flex;align-items:center;justify-content:center;font-size:60px">📦</div>`}<div><span class="tag">${i.cat||"Other"}</span><span class="tag2">📍 ${i.district}</span><h2 style="margin:12px 0 4px;font-size:22px">${i.title}</h2><p style="margin:0;color:#555">Want: <b style="color:#111">${i.want}</b></p><small>By ${i.name}</small><a class="wa" target="_blank" href="https://wa.me/${wa}?text=${encodeURIComponent("Hi "+i.name+", I saw your "+i.title+" on Sinthanani. I want to barter!")}">💬 Chat on WhatsApp</a></div></div>`
   }).join("");
 }
 document.getElementById('search').oninput=render;
-document.getElementById('filterDistrict').onchange=render;
-onSnapshot(query(itemsCol, orderBy("createdAt","desc")), snap=>{
-  allItems=snap.docs.map(d=>({id:d.id,...d.data()})); render();
-}, err=>{ document.getElementById('status').textContent="❌ Firebase Error: "+err.message; });
+onSnapshot(query(itemsCol, orderBy("createdAt","desc")), snap=>{allItems=snap.docs.map(d=>({id:d.id,...d.data()}));render();});
 </script>
 </body>
 </html>
