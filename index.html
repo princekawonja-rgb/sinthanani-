@@ -62,12 +62,14 @@ import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTim
 
 // KEEP YOUR WORKING CONFIG FROM YOUR CURRENT FILE - DO NOT USE PASTE_YOURS
 const firebaseConfig = {
-  AIzaSyBXBjAN3wd_99knkalN1SgBgROggcTLXy0
+  apiKey:"AIzaSyBXBjAN3wd_99knkalN1SgBgROggcTLXy0
   authDomain: "sinthanani-997de.firebaseapp.com",
   projectId: "sinthanani-997de",
   storageBucket: "sinthanani-997de.firebasestorage.app",
   messagingSenderId: "504088914794",
-0a7cbfe7c145d87fe6d313const app = initializeApp(firebaseConfig);
+appId:"1:504088914794:web:0a7cbfe7c145d87fe6d313"
+  };
+  const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const itemsCol = collection(db, "items");
 document.getElementById('status').textContent = "● Live - Connected to Firebase";
